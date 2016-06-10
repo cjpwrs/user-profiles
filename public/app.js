@@ -1,4 +1,4 @@
-angular.module('userProfiles', ['ui.router'])
+ angular.module('userProfiles', ['ui.router'])
 
 .config(function( $stateProvider, $urlRouterProvider ) {
 
@@ -13,8 +13,11 @@ angular.module('userProfiles', ['ui.router'])
 		'templateUrl': './views/profile.html',
 		controller: 'profileCtrl',
 		resolve: {
-			userInfo: function( friendService ) {
-				/* FIX ME */
+			userInfo: function( friendService, $http ) {
+				return friendService.getFriends()
+					.then(function(response){
+						return response.data;
+					})
 			}
 		}
 	});
